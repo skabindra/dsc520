@@ -1,5 +1,5 @@
 # Assignment: ASSIGNMENT 4
-# Name: Senapati, Kabindr
+# Name: Senapati, Kabindra
 # Date: 2022-01-18
 
 ## Load the ggplot2 package
