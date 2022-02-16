@@ -1,0 +1,61 @@
+---
+title: "week10_assignment_SenapatiKabindra"
+output: html_document
+---
+
+
+# 1. Fit a Logistic Regression Model to Thoracic Surgery Binary Dataset
+
+# a. For this problem, you will be working with the thoracic surgery data set 
+#install.packages("caTools")
+#library("RWeka")
+#library("caTools")
+```{r}
+library("RWeka")
+library("caTools")
+setwd("/Users/snigdha/Documents/dsc520")
+surgerydata <- read.csv("data/ThoraricSurgery.csv",header = TRUE)
+```
+#b.1. split the data
+```{r}
+
+split <- sample.split(surgerydata,SplitRatio = 0.8)
+train <- subset(surgerydata, split == "TRUE")
+test <- subset(surgerydata, split == "FALSE")
+mymodel <- glm(Risk1Yr ~ AGE + PRE4,data=train,family = "binomial")
+summary(mymodel)
+```
+##b.2.According to the summary, which variables had the greatest effect on the survival rate?
+#AGE
+
+##b.3To compute the accuracy of your model
+```{r}
+res <- predict(mymodel,test,type = "response")
+res <- predict(mymodel,train,type = "response")
+confamatrix <- table(Actual_value = train$Risk1Yr, predicted_value = res > 0.5 )
+confamatrix
+(confamatrix[[1,1]] )/sum(confamatrix)
+```
+##2. Fit a Logistic Regression Model
+
+#2.a. Fit a logistic regression model to the binary-classifier-data.csv dataset
+```{r}
+mydata <- read.csv("data/binary-classifier-data.csv")
+mydata$label <- as.factor(mydata$label)
+split <- sample.split(mydata,SplitRatio = 0.8)
+train <- subset(mydata, split == "TRUE")
+test <- subset(mydata, split == "FALSE")
+
+mymodel <- glm(label ~ y ,data=train,family = "binomial")
+summary(mymodel)
+```
+#2.b.The dataset (found in binary-classifier-data.csv) contains three variables; label, x, and y. The label variable is either 0 or 1 and is the output we want to predict using the x and y variables.
+```{r}
+res <- predict(mymodel,test,type = "response")
+res <- predict(mymodel,train,type = "response")
+
+confamatrix <- table(Actual_value = train$label, predicted_value = res > 0.5 )
+confamatrix
+
+(confamatrix[[1,1]] + confamatrix[[2,2]])/sum(confamatrix)
+```
