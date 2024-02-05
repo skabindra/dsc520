@@ -1,0 +1,2 @@
+The data i worked on was on Housing price prediction for a certain area . I data i used is for California market based on a number of possible location-based predictors, including latitude, longitude, and information about other houses within a particular block.
+The goal of the project is to create the model that can best predict home prices in California given reasonable test/train splits in the data.
